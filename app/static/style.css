@@ -1,360 +1,169 @@
-/* --- VARIABLES ET CONFIGURATION GLOBALE --- */
-:root {
-    --bleu-nuit: #061b3a;
-    --bleu: #0d6efd;
-    --bleu-clair: #06b6d4;
-    --gris: #f4f7fb;
-    --texte: #0f172a;
-    --bordure: #d9e2ef;
-}
-
-* { 
-    box-sizing: border-box; 
+/* --- CONFIGURATION GLOBALE --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #ffffff;
-    color: var(--texte);
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333333;
 }
 
-main { 
-    min-height: 80vh; 
-}
-
-.flash { 
-    width: 90%; 
-    margin: 15px auto; 
-    background: #eaf4ff; 
-    border-left: 5px solid var(--bleu); 
-    padding: 10px 20px; 
-    border-radius: 8px; 
-}
-
-/* --- LA BANNIÈRE DU HAUT (NAVBAR COPIE CONFORME) --- */
+/* --- TOUT POUR LA NAVBAR (Évite le logo géant blanc) --- */
 .navbar {
     background-color: #061b3a !important; /* Bleu nuit de la maquette */
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    padding: 10px 60px !important; /* Hauteur fine */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2) !important;
-    height: 70px !important;
+    padding: 0 60px !important;
+    height: 80px !important;
     width: 100% !important;
 }
 
-/* Suppression du fond blanc forcé autour du logo */
-.logo-zone, .navbar a:first-child, [class*="logo"] {
+/* Zone du logo (Supprime le fond blanc et l'agrandissement) */
+.logo-zone {
     background: transparent !important;
-    background-color: transparent !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border-radius: 0 !important;
     display: flex !important;
     align-items: center !important;
 }
 
-/* Ajustement de l'image logo.png */
-.logo-zone img, .navbar img, [class*="logo"] img {
-    height: 42px !important;
+.logo-zone img {
+    height: 45px !important; /* Fixe la taille pour éviter le bug de l'image géante */
     width: auto !important;
     background: transparent !important;
-    background-color: transparent !important;
-    padding: 0 !important;
-    border: none !important;
-    object-fit: contain !important;
 }
 
-/* Positionnement des liens à droite */
-.navbar nav, .navbar div:last-child {
+/* Liens de navigation */
+.navbar nav {
     display: flex !important;
     align-items: center !important;
-    gap: 35px !important;
+    gap: 30px !important;
 }
 
-/* Liens de menu */
-.navbar a, nav a {
+.navbar nav a {
     color: #ffffff !important;
     text-decoration: none !important;
     font-size: 14px !important;
     font-weight: bold !important;
-    padding: 22px 0 !important;
-    transition: color 0.2s ease-in-out !important;
+    padding: 10px 0 !important;
+    transition: color 0.2s ease;
 }
 
-/* Effet survol (Cyan) */
-.navbar a:hover, nav a:hover {
-    color: #06b6d4 !important;
+.navbar nav a:hover {
+    color: #06b6d4 !important; /* Bleu cyan au survol */
 }
 
-/* Soulignage bleu sous la page active */
-.navbar a.active, nav a.active, .navbar a[href="/"]:focus {
-    color: #ffffff !important;
-    border-bottom: 3px solid #0d6efd !important;
-}
-
-/* --- SECTION HERO (ACCUEIL) --- */
+/* --- BANNIÈRE D'ACCUEIL (HERO ACCUEIL.HTML) --- */
 .hero {
-    min-height: 430px;
-    background: linear-gradient(90deg, rgba(6, 27, 58, 0.95), rgba(6, 27, 58, 0.55)), url('/static/IMAGE/entreprise.jpg') center/cover;
-    color: white;
-    display: flex;
-    align-items: center;
-    padding: 60px;
-}
-.hero-text { 
-    max-width: 560px; 
-    text-align: left; 
-}
-.hero h1 { 
-    font-size: 42px; 
-    margin: 0 0 15px; 
-    line-height: 1.2; 
-}
-.hero p { 
-    font-size: 18px; 
-    line-height: 1.6; 
-    margin-bottom: 25px; 
+    width: 100% !important;
+    min-height: 480px !important;
+    /* Image en fond avec le filtre sombre transparent de la maquette */
+    background: linear-gradient(90deg, rgba(6, 27, 58, 0.85), rgba(6, 27, 58, 0.45)), url('/static/IMAGE/entreprise.jpg') center/cover !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 0 80px !important;
 }
 
-/* --- BOUTONS --- */
+/* Bloc texte à gauche */
+.hero-text {
+    max-width: 550px !important;
+    text-align: left !important;
+    background: transparent !important;
+}
+
+.hero-text h1 {
+    color: #ffffff !important;
+    font-size: 38px !important;
+    font-weight: bold !important;
+    line-height: 1.3 !important;
+    margin-bottom: 20px !important;
+}
+
+.hero-text p {
+    color: #cbd5e1 !important;
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+    margin-bottom: 30px !important;
+}
+
+/* Bouton Découvrir nos services */
 .btn {
-    display: inline-block;
-    background: linear-gradient(90deg, #0d6efd, #06b6d4);
-    color: white;
-    text-decoration: none;
-    border: 0;
-    padding: 12px 20px;
-    border-radius: 6px;
-    font-weight: bold;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-size: 13px;
+    display: inline-block !important;
+    background: #007bff !important;
+    color: white !important;
+    text-decoration: none !important;
+    padding: 12px 24px !important;
+    border-radius: 4px !important;
+    font-weight: bold !important;
+    font-size: 14px !important;
+    text-transform: uppercase !important;
+}
+
+/* --- SECTION FILIALES (BAS DE PAGE ACCUEIL) --- */
+.section {
+    max-width: 1140px;
+    margin: 40px auto;
+    padding: 0 20px;
     text-align: center;
 }
 
-/* --- STRUCTURE GÉNÉRALE DES SECTIONS --- */
-.section {
-    width: 90%;
-    max-width: 1150px;
-    margin: 35px auto;
-    padding: 25px;
-}
 .section h2 {
-    text-align: left;
-    text-transform: uppercase;
-    color: var(--bleu-nuit);
-    margin-bottom: 5px;
+    color: #061b3a;
     font-size: 24px;
-}
-.section h2:after {
-    content: "";
-    display: block;
-    width: 55px;
-    height: 4px;
-    background: var(--bleu-clair);
-    margin: 12px 0;
-    border-radius: 5px;
-}
-.intro {
-    text-align: left;
-    color: #475569;
-    margin-bottom: 35px;
-    font-size: 15px;
+    margin-bottom: 10px;
 }
 
-/* --- GRILLES ET CARTES (CARDS) --- */
-.card {
-    display: grid;
-    gap: 24px;
+.intro {
+    color: #666666;
+    font-size: 14px;
+    margin-bottom: 30px;
 }
-.three { grid-template-columns: repeat(3, 1fr); }
-.four { grid-template-columns: repeat(4, 1fr); }
+
+/* Grille 3 colonnes */
+.card.three {
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 20px !important;
+}
 
 .card-item {
-    background: white;
-    border: 1px solid var(--bordure);
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 6px 15px rgba(15,23,42,.05);
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
     overflow: hidden;
     padding-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
+
 .card-item img {
     width: 100%;
-    height: 180px;
+    height: 200px;
     object-fit: cover;
     margin-bottom: 15px;
 }
+
 .card-item h3 {
-    text-transform: uppercase;
-    color: var(--bleu-nuit);
-    margin: 10px 0 5px;
+    color: #061b3a;
     font-size: 16px;
-    letter-spacing: 0.5px;
+    margin-bottom: 5px;
 }
+
 .card-item p {
-    color: #64748b;
+    color: #666666;
     font-size: 13px;
-    margin: 0;
 }
 
-/* --- PAGE SERVICES & ET BLOCS INFÉRIEURS --- */
-.service-card {
-    background: white;
-    border: 1px solid var(--bordure);
-    border-radius: 10px;
+/* --- BAS DE PAGE (FOOTER) --- */
+footer {
+    background-color: #ffffff;
     text-align: center;
-    box-shadow: 0 6px 15px rgba(15,23,42,.05);
-    padding: 30px 20px;
-}
-.service-card h3 {
-    color: var(--bleu-nuit);
-    font-size: 15px;
-    margin: 15px 0 10px;
-}
-.service-card p {
-    color: #64748b;
+    padding: 20px;
+    color: #666666;
     font-size: 13px;
-    line-height: 1.5;
-    margin: 0;
-}
-.icon {
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(180deg, #0d6efd, #063d8f);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    font-size: 32px;
-}
-
-/* Bannière statistiques sous services */
-.stats {
+    border-top: 1px solid #e2e8f0;
     margin-top: 40px;
-    background: var(--bleu-nuit);
-    color: white;
-    border-radius: 10px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    text-align: center;
-    padding: 25px;
-}
-.stats div { border-right: 1px solid rgba(255,255,255,.2); }
-.stats div:last-child { border: 0; }
-.stats strong { display: block; font-size: 26px; margin-bottom: 4px; }
-.stats span { font-size: 13px; color: #cbd5e1; }
-
-/* --- PAGE FILIALES (TABLEAU ALIGNÉ) --- */
-.title-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-.title-row .btn {
-    margin-top: -10px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background: white;
-    border: 1px solid var(--bordure);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-}
-th, td {
-    padding: 16px;
-    text-align: center;
-    border: 1px solid var(--bordure);
-    font-size: 14px;
-}
-th {
-    background-color: var(--gris);
-    color: var(--bleu-nuit);
-    font-weight: bold;
-}
-tr:hover { background-color: #f8fafc; }
-.actions-cell span {
-    margin: 0 6px;
-    cursor: pointer;
-    display: inline-block;
-}
-
-/* --- STYLES FORMULAIRES (AJOUT FILIALE / CONTACT) --- */
-.form-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 50px;
-    align-items: start;
-    width: 100%;
-}
-.form-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-.form-group label {
-    display: block;
-    font-weight: bold;
-    color: var(--bleu-nuit);
-    margin-bottom: 8px;
-    font-size: 14px;
-}
-.form-group input, .form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--bordure);
-    border-radius: 6px;
-    font-size: 14px;
-    background: #ffffff;
-    color: var(--texte);
-}
-.form-group input::placeholder, .form-group textarea::placeholder {
-    color: #94a3b8;
-}
-
-/* Bloc coordonnées bleu de la page Contact */
-.contact-sidebar {
-    background-color: var(--bleu-nuit);
-    color: white;
-    padding: 40px 35px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-}
-.contact-sidebar h3 {
-    color: white;
-    font-size: 18px;
-    margin-top: 0;
-    margin-bottom: 25px;
-    font-weight: bold;
-    letter-spacing: 0.5px;
-}
-.contact-sidebar p {
-    font-size: 14px;
-    line-height: 1.8;
-    margin: 14px 0;
-    color: #e2e8f0;
-}
-
-/* --- PAGE A PROPOS --- */
-.about-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
-}
-.about-layout img {
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-.about-text {
-    text-align: left;
-    font-size: 15px;
-    line-height: 1.7;
 }
