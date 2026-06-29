@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section">
+    <div class="title-row">
+        <div>
+            <h2>NOS FILIALES</h2>
+        </div>
+        <a href="{{ url_for('ajouter_filiale') }}" class="btn">+ AJOUTER UNE FILIALE</a>
+    </div>
+    <p class="intro" style="margin-top: -10px;">Gestion centralisée des informations des différentes filiales de l'entreprise.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>VILLE</th>
+                <th>ADRESSE</th>
+                <th>RESPONSABLE</th>
+                <th>EMPLOYÉS</th>
+                <th>IP ROUTEUR</th>
+                <th>ACTIONS</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for filiale in filiales %}
+            <tr>
+                <td>{{ filiale[0] }}</td>
+                <td>{{ filiale[1] }}</td>
+                <td>{{ filiale[2]|replace('RÃ©publique', 'République') }}</td>
+                <td>{{ filiale[3] }}</td>
+                <td>{{ filiale[4] }}</td>
+                <td>{{ filiale[5] }}</td>
+                <td class="actions-cell">
+                    <span style="color: #0d6efd;">👁️</span>
+                    <span style="color: #061b3a;">✏️</span>
+                    <span style="color: #dc3545;">🗑️</span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
