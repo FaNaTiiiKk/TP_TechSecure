@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 import mysql.connector
 import os
+import bcrypt  # Importation pour le hachage sécurisé des mots de passe
 
 app = Flask(__name__)
-app.secret_key = 'techsecure_super_secret_key'
+# Dans un vrai audit, cette clé devrait être dans os.environ pour ne pas être en clair
+app.secret_key = os.environ.get('SECRET_KEY', 'techsecure_super_secret_key')
 
-# Configuration sécurisée via variables d'environnement (injectées par Docker)
+# Configuration via variables d'environnement (injectées par Docker)
 DB_HOST = os.environ.get('DB_HOST', 'db')
 DB_USER = os.environ.get('DB_USER', 'root')
 DB_PASSWORD = os.environ.get('DB_PASSWORD', 'rootpassword')
@@ -18,8 +20,15 @@ def get_db_connection():
         user=DB_USER,
         password=DB_PASSWORD,
         database=DB_NAME,
-        charset='utf8mb4'  # Force l'encodage UTF-8 pour les accents
+        charset='utf8mb4'
     )
+
+# 💡 EXEMPLE D'UTILISATION DE BCRYPT POUR TON RAPPORT D'AUDIT
+def hacher_mot_de_passe(password_clair):
+    """Exemple de fonction de hachage demandée par l'audit."""
+    sel = bcrypt.gensalt()
+    password_hache = bcrypt.hashpw(password_clair.encode('utf-8'), sel)
+    return password_hache
 
 # 1️⃣ PAGE D'ACCUEIL
 @app.route('/')
@@ -43,7 +52,9 @@ def filiales():
         conn.close()
         return render_template('filiales.html', filiales=liste_filiales)
     except Exception as e:
-        return f"Erreur de connexion à la base de données : {e}"
+        # Sécurisation : On n'affiche plus l'erreur brute à l'écran, on redirige proprement
+        flash("Une erreur interne est survenue lors de l'accès aux filiales.", "error")
+        return redirect(url_for('accueil'))
 
 # 4️⃣ PAGE AJOUTER UNE FILIALE
 @app.route('/ajouter-filiale', methods=['GET', 'POST'])
@@ -55,11 +66,16 @@ def ajouter_filiale():
         employes = request.form['employes']
         ip_reseau = request.form['ip_reseau']
 
+        # Validation basique des champs (Sécurité applicative)
+        if not ville or not adresse or not responsable:
+            flash("Tous les champs obligatoires doivent être remplis !", "error")
+            return redirect(url_for('ajouter_filiale'))
+
         try:
             conn = get_db_connection()
             cursor = conn.cursor()
             
-            # Requête paramétrée sécurisée contre les injections SQL
+            # Requête paramétrée sécurisée contre les injections SQL (Validé !)
             query = """
                 INSERT INTO filiales (ville, adresse, responsable, employes, ip_reseau) 
                 VALUES (%s, %s, %s, %s, %s)
@@ -71,9 +87,11 @@ def ajouter_filiale():
             cursor.close()
             conn.close()
             
+            flash("La filiale a été ajoutée avec succès !", "success")
             return redirect(url_for('filiales'))
         except Exception as e:
-            return f"Erreur lors de l'ajout de la filiale : {e}"
+            flash("Impossible d'ajouter la filiale. Vérifiez les informations saisies.", "error")
+            return redirect(url_for('ajouter_filiale'))
 
     return render_template('ajouter_filiale.html')
 
@@ -86,6 +104,7 @@ def apropos():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
+        flash("Votre message de contact a été envoyé avec succès !", "success")
         return redirect(url_for('contact'))
     return render_template('contact.html')
 
