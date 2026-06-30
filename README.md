@@ -35,15 +35,18 @@ Clone the project or navigate to the repository directory:
 ```bash
 cd TP_TechSecure
 ```
+```text
 Environment configuration (Mandatory):
 Create a .env file at the root of the project (this file is excluded from Git to prevent password leaks). Add the following variables:
+```
 
-Plaintext
+```text
 DB_HOST=db
 DB_USER=root
 DB_PASSWORD=rootpassword
 DB_NAME=techsecure_db
 SECRET_KEY=techsecure_super_secret_key
+```
 
 ### 3. Deployment
 Build and launch the infrastructure in detached mode:
