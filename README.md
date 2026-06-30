@@ -42,7 +42,8 @@ docker compose up --build -d
 ```
 (Note: The --build flag ensures that all updated dependencies, including the bcrypt library, are freshly installed inside the container).
 
-3. Accessing the Application
+### 3. Accessing the Application
+
 Once the containers are up and running, open your preferred web browser and go to:
 👉 http://localhost:5000
 
